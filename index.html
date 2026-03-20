@@ -3,31 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Кастинг 21.03</title>
-
+<title>Кастинг 19.03</title>
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 .container{max-width:420px;margin:auto;padding:20px;}
 .title{text-align:center;font-size:28px;font-weight:bold;margin-top:20px;}
 .subtitle{text-align:center;color:#ff3b3b;margin-bottom:30px;}
 .role{margin-top:40px;text-align:center;font-size:20px;}
-.card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-top:20px;}
+.card{background:#1a1a1a;border-radius:12px;overflow:hidden;margin-top:20px;position:relative;}
 .card img{width:100%;height:260px;object-fit:cover;}
 .card-body{padding:15px;text-align:center;}
 .name{font-size:18px;font-weight:bold;margin-bottom:10px;}
 .button{display:inline-block;padding:10px 16px;background:#e50914;border-radius:6px;cursor:pointer;margin:5px;}
+.selected{border:3px solid #00ff00;}
+.rejected{border:3px solid #ff0000;}
+.popup{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:1000;}
+.popup video{width:90%;border-radius:10px;}
+.close{position:absolute;top:20px;right:20px;font-size:28px;cursor:pointer;color:white;}
 </style>
-
 </head>
 <body>
 
 <div class="container">
 <div class="title">КАСТИНГ 21.03</div>
-<div class="subtitle">Утверждаем роли: ВОДИТЕЛЬ ТАКСИ</div>
+<div class="subtitle">Утверждаем роли: ВОДИТЕЛЬ ТАКСИ </div>
 
 <div class="role">РОЛЬ: ВОДИТЕЛЬ ТАКСИ</div>
 
-<div class="card">
+<div class="card" data-id="1">
 <img src="photos/Иванов1.jpg">
 <div class="card-body">
 <div class="name">Иванов Александр</div>
@@ -35,7 +38,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="2">
 <img src="photos/Герасимов1.jpg">
 <div class="card-body">
 <div class="name">Никита Герасимов</div>
@@ -43,7 +46,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="3">
 <img src="photos/Ефремов1.jpg">
 <div class="card-body">
 <div class="name">Ефремов Виктор</div>
@@ -51,7 +54,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="4">
 <img src="photos/Щербаков1.jpg">
 <div class="card-body">
 <div class="name">Щербаков Дмитрий</div>
@@ -59,7 +62,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="5">
 <img src="photos/Сидоров1.jpg">
 <div class="card-body">
 <div class="name">Сидоров Станислав</div>
@@ -67,7 +70,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="6">
 <img src="photos/Васильев1.jpg">
 <div class="card-body">
 <div class="name">Артём Васильев</div>
@@ -75,7 +78,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="7">
 <img src="photos/Щербаков2.jpg">
 <div class="card-body">
 <div class="name">Евгений Щербаков</div>
@@ -83,7 +86,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="8">
 <img src="photos/Пятаев1.jpg">
 <div class="card-body">
 <div class="name">Петряев Дмитрий</div>
@@ -91,7 +94,7 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 </div>
 </div>
 
-<div class="card">
+<div class="card" data-id="9">
 <img src="photos/Константинов1.jpg">
 <div class="card-body">
 <div class="name">Константиновский Иван</div>
@@ -101,25 +104,32 @@ body{margin:0;font-family:Arial,sans-serif;background:#0b0b0b;color:white;}
 
 </div>
 
+<div class="popup" id="popup">
+<div class="close" onclick="closeVideo()">✕</div>
+<video id="videoPlayer" controls></video>
+</div>
+
 <script>
 function openVideo(video){
-  const links = {
-    "ВАСИЛЬЕВ": "https://disk.yandex.ru/i/e_fYY8wqSJ0wUw",
-    "ЕФРЕМОВ": "https://disk.yandex.ru/i/eYZZraxJZFlmUw",
-    "ИВАНОВ": "https://disk.yandex.ru/i/VGrVYNG76Nbb9Q",
-    "ЩЕРБАКОВ": "https://disk.yandex.ru/i/FXDhjA4_A6KtFg",
-    "ЩЕРБАКОВ3": "https://disk.yandex.ru/i/ahojYz0TJY66Bg",
-    "ПЕТРЯЕВ": "https://disk.yandex.com/i/lwZ37ssAfgCiWw",
-    "СИДОРОВ": "https://disk.yandex.ru/i/1ZtX0UU2FkcoTQ",
-    "ГЕРАСИМОВ": "https://disk.yandex.ru/i/6GBXb2wTuHKo_Q",
-    "КОНСТАНТИНОВ": "https://disk.yandex.ru/a/juG-17A-XzEYtg"
-  };
-
-  if (links[video]) {
-    window.open(links[video], "_blank");
-  } else {
-    alert("Видео не найдено");
-  }
+  const player = document.getElementById("videoPlayer");
+  player.src = `videos/${video}.mp4`;
+  document.getElementById("popup").style.display = "flex";
+}
+function closeVideo(){
+  const player = document.getElementById("videoPlayer");
+  player.pause();
+  player.src = "";
+  document.getElementById("popup").style.display = "none";
+}
+function selectActor(btn){
+  const card = btn.closest(".card");
+  card.classList.add("selected");
+  card.classList.remove("rejected");
+}
+function rejectActor(btn){
+  const card = btn.closest(".card");
+  card.classList.add("rejected");
+  card.classList.remove("selected");
 }
 </script>
 
