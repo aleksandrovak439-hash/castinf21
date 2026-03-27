@@ -132,10 +132,9 @@ function openRole(role){
         <div>Рост: ${actor.height} см</div>
         <div>Размер одежды: ${actor.clothing}</div>
         <div>Размер обуви: ${actor.shoes}</div>
-        <button class="btn" onclick="openVideo('${actor.video}')">
-  Смотреть пробу
-</button>
-    `;
+        <a href="${actor.video}" target="_blank">
+  <button class="btn">Смотреть пробу</button>
+	</a>;
     container.appendChild(card);
   });
 }
