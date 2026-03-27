@@ -56,7 +56,7 @@ video { width:90%; height:60%; border-radius:10px; }
 <!-- Видео -->
 <div class="overlay" id="overlay">
   <div class="close" onclick="closeVideo()">✕</div>
-  <iframe id="videoFrame" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:90%; height:60%; border-radius:10px;"></iframe>
+  <video id="video" controls></video>
 </div>
 
 <script>
@@ -72,7 +72,7 @@ const data = {
   "Директор":[
   {name:"Сагит", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Сагит.jpg", video:"https://disk.yandex.ru/i/-IbebezT8vH6UQ"},
   {name:"Палтышев Александр", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Палтышев.jpg", video:"https://disk.yandex.ru/i/O-FVwTHBp6lcPA"},
-  {name:"Константиновский Иван", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Константиновский.jpg", video:"https://disk.yandex.ru/i/SV0utLs_bl29YQ"},
+  {name:"Константиновский Иван", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Константиновский.jpg", video:"https://disk.yandex.ru/a/SV0utLs_bl29YQ"},
   {name:"Зиньковский Игорь", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Зиньковский.jpg", video:"https://disk.yandex.ru/i/GaYzgCfs2uD2sw"},
   {name:"Сивуненко Павел", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Сивуненко.jpg", video:"https://disk.yandex.ru/i/6FCdiJqhbF08AQ"},
   {name:"Миллионов Михаил", age:"", height:"", clothing:"", shoes:"", date:"05.04", img:"photos/Миллионов.jpg", video:"https://disk.yandex.ru/i/6FCdiJqhbF08AQ"},
@@ -132,9 +132,9 @@ function openRole(role){
         <div>Рост: ${actor.height} см</div>
         <div>Размер одежды: ${actor.clothing}</div>
         <div>Размер обуви: ${actor.shoes}</div>
-        <a href="${actor.video}" target="_blank">
-  <button class="btn">Смотреть пробу</button>
-	</a>;
+        <button class="btn" onclick="openVideo('${actor.video}')">Смотреть пробу</button>
+        </div>
+    `;
     container.appendChild(card);
   });
 }
@@ -147,17 +147,17 @@ function goBack(){
 
 // Видео
 function playVideo(url){
-  const frame = document.getElementById('videoFrame');
-  frame.src = url;
+  const video = document.getElementById('video');
+  video.src = url;
+  video.play();
   document.getElementById('overlay').style.display='flex';
 }
-
 function closeVideo(){
-  const frame = document.getElementById('videoFrame');
-  frame.src = '';
+  const video = document.getElementById('video');
+  video.pause();
+  video.src = '';
   document.getElementById('overlay').style.display='none';
 }
-
 function openVideo(url){
   window.open(url, '_blank');
 }
